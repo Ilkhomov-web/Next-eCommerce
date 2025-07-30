@@ -18,7 +18,15 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Navbar() {
   return (
-    <Box>
+    <Box
+      sx={{
+        width: "100%",
+        position: "sticky",
+        top: 0,
+        zIndex: 1000,
+        backgroundColor: "white",
+      }}
+    >
       <AppBar
         position="static"
         color="transparent"
