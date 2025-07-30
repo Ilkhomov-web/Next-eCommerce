@@ -70,7 +70,7 @@ export default function Navbar() {
               <Button
                 sx={{
                   width: "150px",
-                  background: "orange",
+                  background: "#F38332",
                   color: "white",
                   height: "50px",
                 }}

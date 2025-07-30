@@ -7,7 +7,24 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styles from "./Swiper.module.css";
 
+const swiperData = [
+  {
+    id: 1,
+    img: "/images/banner1.webp",
+  },
+  {
+    id: 2,
+    img: "/images/banner2.png",
+  },
+  {
+    id: 3,
+    img: "/images/banner3.jpg",
+  },
+];
+
 const CustomSwiper = () => {
+  console.log(swiperData);
+
   return (
     <Box>
       <Swiper
@@ -20,14 +37,19 @@ const CustomSwiper = () => {
         pagination={{ clickable: true }}
         grabCursor={true}
         modules={[Autoplay, Pagination]}
-        className={styles.mySwiper}
+        className={styles.swiper}
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
+        {swiperData.map((item) => {
+          return (
+            <SwiperSlide key={item.id}>
+              <Box
+                component={"img"}
+                src={item.img}
+                sx={{ width: "100%", objectFit: "cover", height: "600px" }}
+              ></Box>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </Box>
   );
