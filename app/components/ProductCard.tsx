@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import ChatIcon from "@mui/icons-material/Chat";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -10,6 +10,11 @@ interface Props {
 }
 
 const ProductCard = ({ data }: Props) => {
+  const [addBasket, setAddBasket] = useState(false);
+  const hadnleAddToBasket = () => {
+    setAddBasket(true);
+  };
+
   const discountedPrice =
     data.price - (data.price * data.discountPercentage) / 100;
 
@@ -29,7 +34,9 @@ const ProductCard = ({ data }: Props) => {
       }}
     >
       <Box component={"img"} src={data.thumbnail} width={"100%"}></Box>
-      <Typography variant="h6">{data.title}</Typography>
+      <Typography variant="h6">
+        {data.title.substring(0, 15) + "..."}
+      </Typography>
       <Box
         sx={{
           display: "flex",
@@ -73,9 +80,38 @@ const ProductCard = ({ data }: Props) => {
             ${discountedPrice.toFixed(2)}
           </Typography>
         </Box>
-        <Button sx={{ backgroundColor: "#0B76FF", color: "white" }}>
-          <ShoppingCartIcon />
-        </Button>
+        {addBasket ? (
+          <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Button
+              sx={{
+                backgroundColor: "#0B76FF",
+                color: "white",
+
+                fontWeight: "bold",
+              }}
+            >
+              +
+            </Button>
+            <Typography>0</Typography>
+            <Button
+              sx={{
+                backgroundColor: "white",
+                color: "#0B76FF",
+                border: "1px solid #0B76FF",
+                fontWeight: "bold",
+              }}
+            >
+              -
+            </Button>
+          </Box>
+        ) : (
+          <Button
+            onClick={hadnleAddToBasket}
+            sx={{ backgroundColor: "#0B76FF", color: "white" }}
+          >
+            <ShoppingCartIcon />
+          </Button>
+        )}
       </Box>
     </Box>
   );
