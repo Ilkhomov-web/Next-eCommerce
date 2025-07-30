@@ -3,14 +3,14 @@
 
 import { Container } from "@mui/material";
 import Navbar from "./components/Navbar";
-import Swiper from "./components/Swiper";
+import Haeding from "./components/Haeding";
 
 export default function Home() {
   return (
     <main>
       <Container maxWidth="xl">
         <Navbar />
-        <Swiper />
+        <Haeding />
       </Container>
     </main>
   );
