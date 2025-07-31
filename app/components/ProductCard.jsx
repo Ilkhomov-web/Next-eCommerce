@@ -3,15 +3,10 @@ import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import ChatIcon from "@mui/icons-material/Chat";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Product } from "../types/ProductCard";
 
-interface Props {
-  data: Product;
-}
-
-const ProductCard = ({ data }: Props) => {
+const ProductCard = (prop) => {
+  const { data, cardStock, setCardStock } = prop;
   const [addBasket, setAddBasket] = useState(false);
-  const [cardStock, setCardStock] = useState(0);
 
   const hadnleAddToBasket = () => {
     setAddBasket(true);
@@ -113,7 +108,7 @@ const ProductCard = ({ data }: Props) => {
             >
               +
             </Button>
-            <Typography>{cardStock}</Typography>
+            <Typography color="black">{cardStock}</Typography>
             <Button
               sx={{
                 backgroundColor: "white",

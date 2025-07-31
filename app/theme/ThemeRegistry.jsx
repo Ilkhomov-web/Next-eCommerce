@@ -15,11 +15,7 @@ const theme = createTheme({
   },
 });
 
-export default function ThemeRegistry({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ThemeRegistry({ children }) {
   return (
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>

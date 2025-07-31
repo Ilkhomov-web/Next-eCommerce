@@ -16,7 +16,9 @@ import MessageIcon from "@mui/icons-material/Message";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-export default function Navbar() {
+export default function Navbar(prop) {
+  const { cardStock } = prop;
+
   return (
     <Box
       sx={{
@@ -148,7 +150,7 @@ export default function Navbar() {
                     transition: "background 0.3s",
                   }}
                 >
-                  12
+                  {cardStock}
                 </Box>
                 <Typography>My cart</Typography>
               </Box>

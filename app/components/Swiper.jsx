@@ -8,18 +8,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styles from "./Swiper.module.css";
 
-type SwiperItem = {
-  id: number;
-  img: string;
-};
-
-const swiperData: SwiperItem[] = [
+const swiperData = [
   { id: 1, img: "/images/banner1.webp" },
   { id: 2, img: "/images/banner2.png" },
   { id: 3, img: "/images/banner3.jpg" },
 ];
 
-const CustomSwiper: React.FC = () => {
+const CustomSwiper = () => {
   return (
     <Box>
       <Swiper

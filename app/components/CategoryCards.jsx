@@ -2,9 +2,8 @@ import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import FormControlSelect from "./FormControlSelect";
 import ProductCard from "./ProductCard";
-import { Product } from "../types/ProductCard";
 
-const CategoryCard = (prop: any) => {
+const CategoryCard = (prop) => {
   const { allProducts, setAllProducts } = prop;
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const CategoryCard = (prop: any) => {
           marginTop: "20px",
         }}
       >
-        {allProducts.map((product: any) => (
+        {allProducts.map((product) => (
           <ProductCard key={product.id} data={product} />
         ))}
       </Box>
