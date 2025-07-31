@@ -1,30 +1,57 @@
 import { Box, Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import ChatIcon from "@mui/icons-material/Chat";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const ProductCard = (prop) => {
-  const { data, cardStock, setCardStock } = prop;
+const ProductCard = ({ data, cardStock, setCardStock }) => {
   const [addBasket, setAddBasket] = useState(false);
 
-  const hadnleAddToBasket = () => {
+  const currentProduct = cardStock.find((item) => item.id === data.id);
+  const currentCount = currentProduct ? currentProduct.cardItem : 0;
+
+  console.log(currentProduct);
+
+  const handleAddToBasket = () => {
     setAddBasket(true);
-    setCardStock(1);
-  };
 
-  const handleAddBasket = () => {
-    const newStock = cardStock + 1;
-    setCardStock(newStock);
-  };
-
-  const removeBasket = () => {
-    const newStock = cardStock - 1;
-    if (newStock >= 0) {
-      setCardStock(newStock);
-      if (newStock === 0) {
-        setAddBasket(false);
+    setCardStock((prev) => {
+      const exists = prev.find((item) => item.id === data.id);
+      if (exists) {
+        return prev.map((item) =>
+          item.id === data.id
+            ? {
+                ...item,
+                cardItem: item.cardItem + 1,
+                basketItem: item.basketItem + 1,
+              }
+            : item
+        );
+      } else {
+        return [...prev, { id: data.id, cardItem: 1, basketItem: 1 }];
       }
+    });
+  };
+
+  const handleRemoveFromBasket = () => {
+    if (!currentProduct || currentProduct.cardItem === 0) return;
+
+    setCardStock((prev) => {
+      return prev
+        .map((item) =>
+          item.id === data.id
+            ? {
+                ...item,
+                cardItem: item.cardItem - 1,
+                basketItem: item.basketItem - 1,
+              }
+            : item
+        )
+        .filter((item) => item.cardItem > 0);
+    });
+
+    if (currentCount === 1) {
+      setAddBasket(false);
     }
   };
 
@@ -38,92 +65,60 @@ const ProductCard = (prop) => {
         width: "300px",
         padding: "20px",
         borderRadius: "12px",
-        transition: "transform 0.3s",
-        "&:hover": {
-          transform: "scale(1.05)",
-          boxShadow: "0px 0px 15px #aaa",
-          cursor: "pointer",
-        },
       }}
     >
-      <Box component={"img"} src={data.thumbnail} width={"100%"}></Box>
+      <Box component="img" src={data.thumbnail} width="100%" />
       <Typography variant="h6" color="black">
         {data.title.substring(0, 15) + "..."}
       </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box>
-          <StarIcon sx={{ color: "gold" }} />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: "5px",
-            gap: "5px",
-          }}
-        >
+
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <StarIcon sx={{ color: "gold" }} />
+        <Box sx={{ display: "flex", gap: "5px" }}>
           <ChatIcon sx={{ color: "gray" }} />
-          {data.reviews.map((review, index) => (
-            <Typography color="black" key={index}>
-              {review.rating}
+          {data.reviews.map((r, i) => (
+            <Typography key={i} color="black">
+              {r.rating}
             </Typography>
           ))}
         </Box>
       </Box>
+
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
         <Box>
-          <Typography
-            sx={{ textDecoration: "line-through", color: "gray" }}
-            variant="h6"
-          >
+          <Typography sx={{ textDecoration: "line-through", color: "gray" }}>
             ${data.price.toFixed(2)}
           </Typography>
           <Typography sx={{ color: "#F38332" }} variant="h5">
             ${discountedPrice.toFixed(2)}
           </Typography>
         </Box>
+
         {addBasket ? (
           <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <Button
-              sx={{
-                backgroundColor: "#0B76FF",
-                color: "white",
-
-                fontWeight: "bold",
-              }}
-              onClick={handleAddBasket}
+              sx={{ backgroundColor: "#0B76FF", color: "white" }}
+              onClick={handleAddToBasket}
             >
               +
             </Button>
-            <Typography color="black">{cardStock}</Typography>
+            <Typography color="black">{currentCount}</Typography>
             <Button
-              sx={{
-                backgroundColor: "white",
-                color: "#0B76FF",
-                border: "1px solid #0B76FF",
-                fontWeight: "bold",
-              }}
-              onClick={removeBasket}
+              sx={{ border: "1px solid #0B76FF", color: "#0B76FF" }}
+              onClick={handleRemoveFromBasket}
             >
               -
             </Button>
           </Box>
         ) : (
           <Button
-            onClick={hadnleAddToBasket}
+            onClick={handleAddToBasket}
             sx={{ backgroundColor: "#0B76FF", color: "white" }}
           >
             <ShoppingCartIcon />

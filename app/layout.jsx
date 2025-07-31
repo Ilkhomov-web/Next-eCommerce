@@ -1,4 +1,5 @@
-// app/layout.tsx
+// app/layout.jsx
+import React from "react";
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";

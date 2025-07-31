@@ -150,7 +150,7 @@ export default function Navbar(prop) {
                     transition: "background 0.3s",
                   }}
                 >
-                  {cardStock}
+                  {cardStock.reduce((sum, item) => sum + item.cardItem, 0)}
                 </Box>
                 <Typography>My cart</Typography>
               </Box>

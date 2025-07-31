@@ -7,8 +7,8 @@ import CategoryCard from "./components/CategoryCards";
 import { useState, useActionState } from "react";
 
 export default function Home() {
-  const [allProducts, setAllProducts] = useActionState(() => [], []);
-  const [cardStock, setCardStock] = useState(0);
+  const [allProducts, setAllProducts] = useState([]);
+  const [cardStock, setCardStock] = useState([]);
 
   return (
     <main>
