@@ -22,6 +22,7 @@ const ProductCard = ({ data, cardStock, setCardStock }) => {
                 ...item,
                 cardItem: item.cardItem + 1,
                 basketItem: item.basketItem + 1,
+                productdImg: data.thumbnail,
               }
             : item
         );
