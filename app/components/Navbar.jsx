@@ -5,12 +5,14 @@ import {
   Box,
   Button,
   Container,
+  IconButton,
   List,
   ListItem,
   TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import PersonIcon from "@mui/icons-material/Person";
 import MessageIcon from "@mui/icons-material/Message";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -18,6 +20,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Navbar(prop) {
   const { cardStock } = prop;
+  const router = useRouter();
+
+  const handleBasketClick = () => {
+    router.push("/product-details");
+  };
 
   return (
     <Box
@@ -122,20 +129,21 @@ export default function Navbar(prop) {
                 <FavoriteIcon />
                 <Typography>Orders</Typography>
               </Box>
-              <Box
+              <IconButton
                 sx={{
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   color: "gray",
                 }}
+                onClick={() => handleBasketClick()}
               >
                 <ShoppingCartIcon />
                 <Box
                   sx={{
                     position: "absolute",
-                    top: "20px",
-                    right: "30px",
+                    top: "0px",
+                    right: "10px",
                     background: "red",
                     width: "18px",
                     height: "18px",
@@ -153,7 +161,7 @@ export default function Navbar(prop) {
                   {cardStock.reduce((sum, item) => sum + item.cardItem, 0)}
                 </Box>
                 <Typography>My cart</Typography>
-              </Box>
+              </IconButton>
             </Box>
           </Box>
         </Toolbar>

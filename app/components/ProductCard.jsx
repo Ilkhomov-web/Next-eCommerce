@@ -10,8 +10,6 @@ const ProductCard = ({ data, cardStock, setCardStock }) => {
   const currentProduct = cardStock.find((item) => item.id === data.id);
   const currentCount = currentProduct ? currentProduct.cardItem : 0;
 
-  console.log(currentProduct);
-
   const handleAddToBasket = () => {
     setAddBasket(true);
 
