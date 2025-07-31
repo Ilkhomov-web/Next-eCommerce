@@ -11,8 +11,26 @@ interface Props {
 
 const ProductCard = ({ data }: Props) => {
   const [addBasket, setAddBasket] = useState(false);
+  const [cardStock, setCardStock] = useState(0);
+
   const hadnleAddToBasket = () => {
     setAddBasket(true);
+    setCardStock(1);
+  };
+
+  const handleAddBasket = () => {
+    const newStock = cardStock + 1;
+    setCardStock(newStock);
+  };
+
+  const removeBasket = () => {
+    const newStock = cardStock - 1;
+    if (newStock >= 0) {
+      setCardStock(newStock);
+      if (newStock === 0) {
+        setAddBasket(false);
+      }
+    }
   };
 
   const discountedPrice =
@@ -34,7 +52,7 @@ const ProductCard = ({ data }: Props) => {
       }}
     >
       <Box component={"img"} src={data.thumbnail} width={"100%"}></Box>
-      <Typography variant="h6">
+      <Typography variant="h6" color="black">
         {data.title.substring(0, 15) + "..."}
       </Typography>
       <Box
@@ -55,9 +73,11 @@ const ProductCard = ({ data }: Props) => {
             gap: "5px",
           }}
         >
-          <ChatIcon />
+          <ChatIcon sx={{ color: "gray" }} />
           {data.reviews.map((review, index) => (
-            <Typography key={index}>{review.rating}</Typography>
+            <Typography color="black" key={index}>
+              {review.rating}
+            </Typography>
           ))}
         </Box>
       </Box>
@@ -89,10 +109,11 @@ const ProductCard = ({ data }: Props) => {
 
                 fontWeight: "bold",
               }}
+              onClick={handleAddBasket}
             >
               +
             </Button>
-            <Typography>0</Typography>
+            <Typography>{cardStock}</Typography>
             <Button
               sx={{
                 backgroundColor: "white",
@@ -100,6 +121,7 @@ const ProductCard = ({ data }: Props) => {
                 border: "1px solid #0B76FF",
                 fontWeight: "bold",
               }}
+              onClick={removeBasket}
             >
               -
             </Button>

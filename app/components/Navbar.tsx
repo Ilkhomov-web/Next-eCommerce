@@ -129,6 +129,27 @@ export default function Navbar() {
                 }}
               >
                 <ShoppingCartIcon />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "20px",
+                    right: "30px",
+                    background: "red",
+                    width: "18px",
+                    height: "18px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "white",
+                    fontSize: "10px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                    transition: "background 0.3s",
+                  }}
+                >
+                  12
+                </Box>
                 <Typography>My cart</Typography>
               </Box>
             </Box>
@@ -142,6 +163,7 @@ export default function Navbar() {
             alignItems: "center",
             borderBottom: "1px solid #e0e0e0",
             gap: "10px",
+            color: "black",
           }}
         >
           <ListItem
